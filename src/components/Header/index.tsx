@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { Container, Logo, BackButton, BackIcon } from "./styles";
 import logoImg from "@assets/logo.png";
 
@@ -18,16 +17,3 @@ export function Header({ showBackButton = false }: Props) {
     </Container>
   );
 }
-=======
-import { Container, Logo } from './styles';
-
-import logoImg from '@assets/logo.png';
-
-export function Header() {
-    return (
-        <Container>
-            <Logo source={logoImg} />
-        </Container>
-    );
-}
->>>>>>> 03944d02dee2880cff5910bb910732939c83db37
