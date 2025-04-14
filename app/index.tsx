@@ -7,10 +7,10 @@ import {
 } from "@expo-google-fonts/roboto";
 
 import theme from "../src/theme";
-import { Routes } from "../src/routes";
-import { Loading } from "@components/Loading";
 
-import { NavigationContainer } from "@react-navigation/native";
+import { Routes } from "../src/routes/";
+
+import { Loading } from "@components/Loading";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
@@ -22,14 +22,12 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoaded ? (
-        <NavigationContainer>
-          {" "}
-          <Routes />
-        </NavigationContainer>
-      ) : (
+      {fontsLoaded ?
+
+        <Routes />
+        :
         <Loading />
-      )}
+      }
     </ThemeProvider>
   );
 }
