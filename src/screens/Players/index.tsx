@@ -12,6 +12,7 @@ import { AppError } from "@utils/AppError";
 
 import { Header } from "@components/Header";
 import { Filter } from "@components/Filter";
+import { Loading } from "@components/Loading";
 import { Highlight } from "@components/Highlight";
 import { ButtonIcon } from "@components/ButtonIcon";
 import { Input } from "@components/Input";
@@ -26,6 +27,7 @@ type RouteParams = {
 };
 
 export function Players() {
+  const [isLoading, setIsLoading] = useState(true);
   const [newPlayerName, setNewPlayerName] = useState("");
   const [team, setTeam] = useState("Time A");
   const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
@@ -68,7 +70,10 @@ export function Players() {
 
   async function fetchPlayersByTeam() {
     try {
+      setIsLoading(true);
+
       const playersByTeam = await playersGetByGroupAndTeam(group, team);
+
       setPlayers(playersByTeam);
     } catch (error) {
       console.log(error);
@@ -76,39 +81,36 @@ export function Players() {
         "Pessoas",
         "Não foi possível carregar as pessoas do time selecionado"
       );
+    } finally {
+      setIsLoading(false);
     }
   }
 
   async function handlePlayerRemove(playerName: string) {
     try {
-      await playerRemoveByGroup(playerName, group)
-      fetchPlayersByTeam()
-
+      await playerRemoveByGroup(playerName, group);
+      fetchPlayersByTeam();
     } catch (error) {
-      console.log(error)
-      Alert.alert('Remover pessoa', 'Não foi possível remover essa pessoa')
+      console.log(error);
+      Alert.alert("Remover pessoa", "Não foi possível remover essa pessoa");
     }
   }
 
   async function groupRemove() {
     try {
       await groupRemoveByName(group);
-      navigation.navigate('groups')
-
+      navigation.navigate("groups");
     } catch (error) {
-      console.log(error)
-      Alert.alert('Remover grupo', 'Não foi possível remover o grupo.')
+      console.log(error);
+      Alert.alert("Remover grupo", "Não foi possível remover o grupo.");
     }
   }
 
   async function handleGroupRemove() {
-    Alert.alert(
-      'Remover',
-      'Deseja remover o grupo?',
-      [
-        { text: 'Não', style: 'cancel' },
-        { text: 'Sim', onPress: () => groupRemove() }
-      ])
+    Alert.alert("Remover", "Deseja remover a turma?", [
+      { text: "Não", style: "cancel" },
+      { text: "Sim", onPress: () => groupRemove() },
+    ]);
   }
 
   useEffect(() => {
@@ -149,30 +151,33 @@ export function Players() {
         <NumberOfPlayers>{players.length}</NumberOfPlayers>
       </HeaderList>
 
-      <FlatList
-        data={players}
-        keyExtractor={(item) => item.name}
-        renderItem={({ item }) => (
-          <PlayerCard
-            name={item.name}
-            onRemove={() =>
-              handlePlayerRemove(item.name)} />
-        )}
-        ListEmptyComponent={() => (
-          <ListEmpty message="Não há pessoas nesse time." />
-        )}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={[
-          { paddingBottom: 100 },
-          players.length === 0 && { flex: 1 },
-        ]}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={players}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => (
+            <PlayerCard
+              name={item.name}
+              onRemove={() => handlePlayerRemove(item.name)}
+            />
+          )}
+          ListEmptyComponent={() => (
+            <ListEmpty message="Não há pessoas nesse time." />
+          )}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={[
+            { paddingBottom: 100 },
+            players.length === 0 && { flex: 1 },
+          ]}
+        />
+      )}
       <Button
-        title="Remover turma"
+        title="Remover Turma"
         type="SECONDARY"
         onPress={handleGroupRemove}
       />
-
     </Container>
   );
 }
