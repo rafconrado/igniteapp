@@ -33,11 +33,12 @@ O layout foi desenvolvido para proporcionar uma boa experiência tanto em dispos
     cd igniteapp
 
 3. Instale as dependências:
+   ```bash
    npm install
-   # ou
    yarn
 
-4. Inicie o projeto com Expo:
+5. Inicie o projeto com Expo:
+   ```bash
    npx expo start
 
 📄 Licença
