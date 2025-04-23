@@ -42,8 +42,5 @@ O layout foi desenvolvido para proporcionar uma boa experiência tanto em dispos
    ```bash
    npx expo start
 
-📄 Licença
-Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
-
-Desenvolvido com 💙 por Rafael Conrado
-Este projeto foi desenvolvido durante o curso da Rocketseat
+Desenvolvido com 💙 por Rafael Conrado;
+Este projeto foi desenvolvido durante o curso da Rocketseat.
