@@ -11,6 +11,7 @@ export const Container = styled.View`
 export const Logo = styled.Image`
   width: 46px;
   height: 55px;
+  margin-top: -1px;
 `;
 
 export const BackButton = styled.TouchableOpacity`
@@ -20,4 +21,6 @@ export const BackButton = styled.TouchableOpacity`
 export const BackIcon = styled(CaretLeft).attrs(({ theme }) => ({
   size: 32,
   color: theme.COLORS.WHITE,
-}))``;
+}))`
+margin-top: -1px
+`;
