@@ -30,9 +30,10 @@ O layout foi desenvolvido para proporcionar uma boa experiência tanto em dispos
    git clone https://github.com/rafconrado/igniteapp.git
    
 2. Acesse o diretório:
+   ```bash
     cd igniteapp
 
-3. Instale as dependências:
+4. Instale as dependências:
    ```bash
    npm install
    yarn
